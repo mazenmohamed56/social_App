@@ -5,8 +5,6 @@ import 'package:social_app/layouts/cubit/cubit.dart';
 import 'package:social_app/layouts/cubit/states.dart';
 import 'package:social_app/models/new_post_model.dart';
 import 'package:social_app/models/user_data_model.dart';
-import 'package:social_app/modules/EditUserData/editUserData.dart';
-import 'package:social_app/shared/components/components.dart';
 import 'package:social_app/shared/styles/colors.dart';
 import 'package:social_app/shared/styles/icon_broken.dart';
 

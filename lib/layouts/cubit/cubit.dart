@@ -213,8 +213,6 @@ class HomeCubit extends Cubit<HomeScreenStates> {
       uploadcoverPic(name: name, phone: phone, bio: bio);
     else
       updataData(name: name, phone: phone, bio: bio);
-
-    changeIsClickForm();
   }
 
   void updataData({
@@ -240,6 +238,7 @@ class HomeCubit extends Cubit<HomeScreenStates> {
         .update(usermodel.toMap())
         .then((value) {
       getUserData();
+      changeIsClickForm();
     }).catchError((error) {
       print(error.toString());
       emit(UpdateUserDataErrorState());
