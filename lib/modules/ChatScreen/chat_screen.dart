@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
 import 'package:social_app/layouts/cubit/cubit.dart';
 import 'package:social_app/layouts/cubit/states.dart';
-import 'package:social_app/models/user_data_model.dart';
 import 'package:social_app/modules/ChatDetailsScreen/chat_datails_screen.dart';
 import 'package:social_app/shared/components/components.dart';
 

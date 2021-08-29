@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:social_app/models/user_data_model.dart';
-import 'package:social_app/modules/ChatDetailsScreen/chat_datails_screen.dart';
 import 'package:social_app/shared/styles/colors.dart';
-import 'package:social_app/shared/styles/icon_broken.dart';
 
 Widget defaultFormField({
   required TextEditingController controller,
