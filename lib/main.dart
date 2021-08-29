@@ -17,9 +17,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await Firebase.initializeApp();
   await CacheHelper.init();
-  uId = CacheHelper.getData(key: 'uId');
-  print(uId);
-  if (uId != null) {
+  if (CacheHelper.getData(key: 'uId') != null) {
     widget = HomeScreen();
   } else
     widget = LoginScreen();

@@ -7,10 +7,12 @@ import 'package:social_app/shared/styles/icon_broken.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    HomeCubit.get(context).getUserData();
     return BlocConsumer<HomeCubit, HomeScreenStates>(
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
+
         return Scaffold(
           appBar: AppBar(
             title: Text(cubit.titles[cubit.currentIndex]),

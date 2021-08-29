@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:bloc/bloc.dart';
@@ -15,8 +14,8 @@ import 'package:social_app/modules/FeedsScreen/feeds_screen.dart';
 import 'package:social_app/modules/NewPostScreen/new_post_screen.dart';
 import 'package:social_app/modules/SettingsScreen/settings_screen.dart';
 import 'package:social_app/modules/UsersScreen/users_screen.dart';
+import 'package:social_app/shared/Network/local/sharedPreferences.dart';
 import 'package:social_app/shared/components/components.dart';
-import 'package:social_app/shared/components/constants.dart';
 
 class HomeCubit extends Cubit<HomeScreenStates> {
   HomeCubit() : super(InitHomestate());
@@ -41,7 +40,7 @@ class HomeCubit extends Cubit<HomeScreenStates> {
     'Settings',
   ];
   void changeBottomNav(int index, context) {
-    if (index == 1||index==3) getUsers();
+    if (index == 1 || index == 3) getUsers();
     if (index == 2) {
       navigateTo(context, NewPostScreen());
       emit(NewPostState());
@@ -54,7 +53,10 @@ class HomeCubit extends Cubit<HomeScreenStates> {
   void getUserData() {
     emit(GetUserDataLoadingState());
     FirebaseFirestore.instance
-      ..collection('users').doc(uId).get().then((value) {
+      ..collection('users')
+          .doc(CacheHelper.getData(key: 'uId'))
+          .get()
+          .then((value) {
         model = UserModel.fromJson(value.data());
         profileImagePath = model.image;
         coverImagePath = model.cover;
@@ -84,12 +86,9 @@ class HomeCubit extends Cubit<HomeScreenStates> {
           postsLikes.add(value.docs.length);
           postsId.add(element.id);
 
-          print(posts[0].dateTime);
-          print(postsLikes);
           emit(GetAllPostsSuccessState());
         }).catchError((error) {});
       });
-      print(posts[0].dateTime);
       emit(GetAllPostsSuccessState());
     });
   }
@@ -110,13 +109,11 @@ class HomeCubit extends Cubit<HomeScreenStates> {
             userPostsLikes.add(value.docs.length);
             userPostsId.add(element.id);
 
-            print(posts[0].dateTime);
-            print(postsLikes);
             emit(GetUserPostsSuccessState());
           }
         }).catchError((error) {});
       });
-      print(posts[0].dateTime);
+
       emit(GetUserPostsSuccessState());
     }).catchError((error) {
       emit(GetUserPostsErrorState(error));
@@ -169,7 +166,6 @@ class HomeCubit extends Cubit<HomeScreenStates> {
         .putFile(profileimage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        print(value);
         profileImagePath = value;
         profileimage = null;
         updataData(name: name, phone: phone, bio: bio);
@@ -188,7 +184,6 @@ class HomeCubit extends Cubit<HomeScreenStates> {
         .putFile(coverimage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        print(value);
         coverImagePath = value;
         coverimage = null;
         updataData(name: name, phone: phone, bio: bio);
@@ -271,7 +266,6 @@ class HomeCubit extends Cubit<HomeScreenStates> {
         .putFile(postimage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        print(value);
         postimagepath = value;
         postimage = null;
         creatNewPost(text: text, context: context);
@@ -407,8 +401,6 @@ class HomeCubit extends Cubit<HomeScreenStates> {
       imagePath: messageImagePath ?? '',
     );
 
-    // set my chats
-
     FirebaseFirestore.instance
         .collection('users')
         .doc(model.uId)
@@ -422,8 +414,6 @@ class HomeCubit extends Cubit<HomeScreenStates> {
     }).catchError((error) {
       emit(SendMessageErrorState());
     });
-
-    // set receiver chats
 
     FirebaseFirestore.instance
         .collection('users')
