@@ -8,7 +8,6 @@ Widget defaultFormField({
   required TextInputType type,
   Function? onSubmit,
   Function? onChange,
-  Function? onTap,
   bool isPassword = false,
   required Function validate,
   required String label,
@@ -27,9 +26,6 @@ Widget defaultFormField({
       },
       onChanged: (e) {
         onChange!(e);
-      },
-      onTap: () {
-        onTap!();
       },
       validator: (e) {
         validate(e);

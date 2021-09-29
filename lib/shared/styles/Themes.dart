@@ -9,7 +9,6 @@ ThemeData lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     elevation: 0,
     color: Colors.white,
-    brightness: Brightness.dark,
     iconTheme: IconThemeData(
       color: Color(0xFF2B2D42),
     ),

@@ -15,7 +15,8 @@ class HomeScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(cubit.titles[cubit.currentIndex]),
+            title: Text(cubit.titles[cubit.currentIndex],
+                style: Theme.of(context).textTheme.headline6),
           ),
           bottomNavigationBar: BottomNavigationBar(
               currentIndex: cubit.currentIndex,
